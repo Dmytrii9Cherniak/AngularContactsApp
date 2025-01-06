@@ -1,0 +1,9 @@
+<div class="contact-card" *ngIf="contact">
+  <h1>{{ contact.firstName }} {{ contact.lastName }}</h1>
+  <p class="phone-number">Phone: {{ contact.phoneNumber }}</p>
+  <p class="email">Email: {{ contact.email }}</p>
+  <p class="address">Address: {{ contact.address }}</p>
+  <p class="birth-date">Birth Date: {{ contact.birthDate }}</p>
+  <p class="company-name">Company: {{ contact.companyName }}</p>
+  <p class="position">Position: {{ contact.position }}</p>
+</div>

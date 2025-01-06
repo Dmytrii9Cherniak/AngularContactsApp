@@ -1,59 +1,37 @@
-# AngularUsersApp
+**README.md (Prettier Section)**
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+## 🛠 **Code Formatting with Prettier**
 
-## Development server
+This project uses **Prettier** to automatically format the code. It helps maintain clean, consistent, and standardized code effortlessly.
 
-To start a local development server, run:
+### **🔧 Prettier Configuration:**
+- Configuration file: `.prettierrc`.
+- You can manually format the code using the shortcut **Ctrl + Alt + Shift + P** in WebStorm.
 
+### **📦 Command for Manual Formatting:**
+To manually run Prettier for the entire project, use the following command:
 ```bash
-ng serve
+npx prettier --write .
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+### **⚙️ Prettier Configuration File:**
+**.prettierrc**
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 100,
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "bracketSpacing": true
+}
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### **📄 How Formatting Works in WebStorm:**
+1. Prettier automatically formats the code when the **Ctrl + Alt + Shift + P** shortcut is used.
+2. You can also configure WebStorm to format the code automatically on file save.
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### **Why is Prettier Important?**
+- Ensures consistent code formatting across the project.
+- Makes the project easier to maintain and improves code readability.
+- Eliminates manual formatting and saves developer time.

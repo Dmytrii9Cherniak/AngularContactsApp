@@ -1,0 +1,193 @@
+<div class="contact-list-container">
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <div class="input-group">
+      <input formControlName="searchQuery" placeholder="Search contacts" />
+      <button type="button" (click)="clearSearch()">Clear</button>
+    </div>
+    <button type="submit" class="search-btn">Search</button>
+  </form>
+
+  <button (click)="openAddModal()" class="add-btn">Add New Contact</button>
+
+  <ng-container *ngIf="contacts.length > 0; else noContacts">
+    <ul class="contact-list">
+      <li *ngFor="let contact of contacts" class="contact-item">
+        <span class="contact-info">
+          {{ contact.firstName }} {{ contact.lastName }} - {{ contact.phoneNumber }} - {{ contact.email }}
+        </span>
+        <div class="contact-actions">
+          <button (click)="openEditModal(contact)" class="edit_button">Edit</button>
+          <button (click)="openDeleteModal(contact)" class="delete-btn">Delete</button>
+          <button (click)="viewContactDetails(contact.id)" class="info-btn">Info</button>
+        </div>
+      </li>
+    </ul>
+  </ng-container>
+
+  <ng-template #noContacts>
+    <div class="no-contacts">No contacts available. Please add a new contact.</div>
+  </ng-template>
+</div>
+
+<app-modal-wrapper class="add-contact-modal"
+                   [isModalShow]="isModalVisible('addContact')"
+                   (modalVisibleChange)="handleModalVisibilityChange('addContact', $event)">
+  <ng-template #modalHeader>
+    <h2>Add New Contact</h2>
+  </ng-template>
+  <ng-template #modalBody>
+    <form [formGroup]="contactForm" class="form_content">
+      <label>
+        First Name:
+        <input formControlName="firstName" type="text" />
+      </label>
+      <div class="error" *ngIf="contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid">
+        First Name is required.
+      </div>
+
+      <label>
+        Last Name:
+        <input formControlName="lastName" type="text" />
+      </label>
+      <div class="error" *ngIf="contactForm.get('lastName')?.touched && contactForm.get('lastName')?.invalid">
+        Last Name is required.
+      </div>
+
+      <label>
+        Phone Number:
+        <input formControlName="phoneNumber" type="text" />
+      </label>
+      <div class="error" *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.hasError('required')">
+        Phone Number is required.
+      </div>
+      <div class="error" *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.hasError('pattern')">
+        Phone Number must contain only digits.
+      </div>
+
+      <label>
+        Email:
+        <input formControlName="email" type="email" />
+      </label>
+      <div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.hasError('required')">
+        Email is required.
+      </div>
+      <div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.hasError('email')">
+        Please enter a valid email address.
+      </div>
+
+      <label>
+        Address:
+        <input formControlName="address" type="text" />
+      </label>
+
+      <label>
+        Birth Date:
+        <input formControlName="birthDate" type="date" [attr.max]="maxDate" />
+      </label>
+
+      <label>
+        Company Name:
+        <input formControlName="companyName" type="text" />
+      </label>
+
+      <label>
+        Position:
+        <input formControlName="position" type="text" />
+      </label>
+    </form>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button (click)="saveContact()">Save</button>
+    <button (click)="closeAddModal()">Cancel</button>
+  </ng-template>
+</app-modal-wrapper>
+
+
+<app-modal-wrapper class="edit-contact-modal"
+                   [isModalShow]="isModalVisible('editContact')"
+                   (modalVisibleChange)="handleModalVisibilityChange('editContact', $event)">
+  <ng-template #modalHeader>
+    <h2>Edit Contact</h2>
+  </ng-template>
+  <ng-template #modalBody>
+    <form [formGroup]="contactForm" class="form_content">
+      <label>
+        First Name:
+        <input formControlName="firstName" type="text" />
+      </label>
+      <div class="error" *ngIf="contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid">
+        First Name is required.
+      </div>
+
+      <label>
+        Last Name:
+        <input formControlName="lastName" type="text" />
+      </label>
+      <div class="error" *ngIf="contactForm.get('lastName')?.touched && contactForm.get('lastName')?.invalid">
+        Last Name is required.
+      </div>
+
+      <label>
+        Phone Number:
+        <input formControlName="phoneNumber" type="text" />
+      </label>
+      <div class="error" *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.hasError('required')">
+        Phone Number is required.
+      </div>
+      <div class="error" *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.hasError('pattern')">
+        Phone Number must contain only digits.
+      </div>
+
+      <label>
+        Email:
+        <input formControlName="email" type="email" />
+      </label>
+      <div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.hasError('required')">
+        Email is required.
+      </div>
+      <div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.hasError('email')">
+        Please enter a valid email address.
+      </div>
+
+      <label>
+        Address:
+        <input formControlName="address" type="text" />
+      </label>
+
+      <label>
+        Birth Date:
+        <input formControlName="birthDate" type="date" [attr.max]="maxDate" />
+      </label>
+
+      <label>
+        Company Name:
+        <input formControlName="companyName" type="text" />
+      </label>
+
+      <label>
+        Position:
+        <input formControlName="position" type="text" />
+      </label>
+    </form>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button (click)="saveContact()">Save</button>
+    <button (click)="closeEditModal()">Cancel</button>
+  </ng-template>
+</app-modal-wrapper>
+
+
+<app-modal-wrapper class="delete-contact-modal"
+                   [isModalShow]="isModalVisible('deleteContact')"
+                   (modalVisibleChange)="handleModalVisibilityChange('deleteContact', $event)">
+  <ng-template #modalHeader>
+    <h2>Delete Contact</h2>
+  </ng-template>
+  <ng-template #modalBody>
+    <p class="message">{{ getDeleteConfirmationMessage() }}</p>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button (click)="confirmDeleteContact()">Yes</button>
+    <button (click)="closeDeleteModal()">No</button>
+  </ng-template>
+</app-modal-wrapper>
