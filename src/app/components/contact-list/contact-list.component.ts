@@ -105,20 +105,32 @@ export class ContactListComponent extends ModalManager implements OnInit {
   }
 
   saveContact(): void {
-    if (this.contactForm.valid) {
-      if (this.isModalVisible('editContact') && this.selectedContact) {
-        const updatedContact = { ...this.selectedContact, ...this.contactForm.value };
-        this.contactService.updateContact(updatedContact);
-      } else if (this.isModalVisible('addContact')) {
-        const newContact: Contact = {
-          id: 0,
-          ...this.contactForm.value
-        };
-        this.contactService.addContact(newContact);
-      }
-      this.loadContacts();
-      this.closeAllModals();
+    if (this.contactForm.invalid) {
+      // Позначаємо всі поля як "touched", щоб помилки відображалися
+      this.markAllFieldsAsTouched();
+      return;
     }
+
+    if (this.isModalVisible('editContact') && this.selectedContact) {
+      const updatedContact = { ...this.selectedContact, ...this.contactForm.value };
+      this.contactService.updateContact(updatedContact);
+    } else if (this.isModalVisible('addContact')) {
+      const newContact: Contact = {
+        id: 0,
+        ...this.contactForm.value
+      };
+      this.contactService.addContact(newContact);
+    }
+
+    this.loadContacts();
+    this.closeAllModals();
+  }
+
+  private markAllFieldsAsTouched(): void {
+    Object.keys(this.contactForm.controls).forEach((field) => {
+      const control = this.contactForm.get(field);
+      control?.markAsTouched();
+    });
   }
 
   confirmDeleteContact(): void {
