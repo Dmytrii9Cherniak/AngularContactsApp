@@ -106,7 +106,6 @@ export class ContactListComponent extends ModalManager implements OnInit {
 
   saveContact(): void {
     if (this.contactForm.invalid) {
-      // Позначаємо всі поля як "touched", щоб помилки відображалися
       this.markAllFieldsAsTouched();
       return;
     }
